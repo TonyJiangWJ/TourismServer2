@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"
+>
+<hibernate-mapping>
+	<class name = "po.Activities" table = "t_activity">
+		<id name = "activity_id" column = "_activity_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="activity_name" column = "_activity_name"/>
+		<property name  ="age_flag" column = "_age_flag"/>
+		<property name  ="age_range" column = "_age_range"/>
+		<property name  ="content" column = "_content"/>
+		<property name  ="count" column = "_count"/>
+		<property name  ="dest_type" column = "_dest_type"/>
+		<property name  ="destination" column = "_destination"/>
+		<property name  ="image" column = "_image"/>
+		<property name  ="pub_time" column = "_pub_time"/>
+		<property name  ="publisher_id" column = "_publisher_id"/>
+		<property name  ="short_desc" column = "_short_desc"/>
+		<property name  ="title" column = "_title"/>
+		<property name  ="type" column = "_type"/>
+	</class>
+	
+	<class name = "po.Comment" table = "t_comment">
+		<id name = "comment_id" column = "_comment_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="content" column = "_content"/>
+		<property name  ="publisher_id" column = "_publisher_id"/>
+		<property name  ="to_id" column = "_to_id"/>
+		<property name  ="pub_time" column = "_pub_time"/>
+		<property name  ="type" column = "_type"/>
+		<property name  ="type_flag" column = "_type_flag"/>
+	</class>
+	
+	<class name = "po.Company" table = "t_company">
+		<id name = "company_id" column = "_company_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="content" column = "_content"/>
+		<property name  ="company_name" column = "_company_name"/>
+		<property name  ="join_time" column = "_join_time"/>
+	</class>
+	
+	<class name = "po.Knowledge" table = "t_knowledge">
+		<id name = "nlg_id" column = "_nlg_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="content" column = "_content"/>
+		<property name  ="nlg_name" column = "_nlg_name"/>
+		<property name  ="pub_time" column = "_pub_time"/>
+	</class>
+	
+	<class name = "po.Packages" table = "t_package">
+		<id name = "package_id" column = "_package_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="content" column = "_content"/>
+		<property name  ="active_time" column = "_active_time"/>
+		<property name  ="activity_id" column = "_activity_id"/>
+		<property name  ="pub_time" column = "_pub_time"/>
+		<property name  ="price" column = "_price"/>
+		<property name  ="title" column = "_title"/>
+		<property name  ="pkg_name" column = "_pkg_name"/>
+	</class>
+	
+	<class name = "po.Purchase" table = "t_purchase">
+		<id name = "purchase_id" column = "_purchase_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="count" column = "_count"/>
+		<property name  ="owner_id" column = "_owner_id"/>
+		<property name  ="package_id" column = "_package_id"/>
+		<property name  ="purchase_date" column = "_purchase_date"/>
+		<property name  ="rate_status" column = "_rate_status"/>
+		<property name  ="status" column = "_status"/>
+	</class>
+	
+	<class name = "po.Topic" table = "t_topic">
+		<id name = "tpc_id" column = "_tpc_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="content" column = "_content"/>
+		<property name  ="image" column = "_image"/>
+		<property name  ="people_num" column = "_people_num"/>
+		<property name  ="publisher_id" column = "_publisher_id"/>
+		<property name  ="title" column = "_title"/>
+		<property name  ="tpc_name" column = "_tpc_name"/>
+	</class>
+	
+	<class name = "po.User" table = "t_user">
+		<id name = "user_id" column = "_user_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="user_name" column = "_user_name"/>
+		<property name  ="sex" column = "_sex"/>
+		<property name  ="created_time" column = "_created_time"/>
+		<property name  ="image" column = "_image"/>
+		<property name  ="last_login" column = "_last_login"/>
+		<property name  ="name" column = "_name"/>
+		<property name  ="nick_name" column = "_nick_name"/>
+		<property name  ="password" column = "_password"/>
+		<property name  ="phone" column = "_phone"/>
+	</class>
+	
+	<class name = "po.Zan" table = "t_zan">
+		<id name = "zan_id" column = "_zan_id">
+			<generator class = "assigned"/>
+		</id>
+		<property name  ="object_id" column = "_object_id"/>
+		<property name  ="owner_id" column = "_owner_id"/>
+		<property name  ="pub_time" column = "_pub_time"/>
+		<property name  ="type_flag" column = "_type_flag"/>
+	</class>
+	
+
+
+</hibernate-mapping>
