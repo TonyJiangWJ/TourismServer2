@@ -33,6 +33,7 @@
 		<property name  ="pub_time" column = "_pub_time"/>
 		<property name  ="type" column = "_type"/>
 		<property name  ="type_flag" column = "_type_flag"/>
+		<property name  ="reply_id" column = "_reply_id"/>
 	</class>
 	
 	<class name = "po.Company" table = "t_company">

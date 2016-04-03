@@ -8,6 +8,14 @@ public class Comment {
 	private String to_id;
 	private String type;
 	private int type_flag;
+	private String reply_id;
+	
+	public String getReply_id() {
+		return reply_id;
+	}
+	public void setReply_id(String reply_id) {
+		this.reply_id = reply_id;
+	}
 	public String getComment_id() {
 		return comment_id;
 	}

@@ -17,6 +17,7 @@
     	<property name="show_sql">true</property>
     	
     	<mapping resource = "po/AllClassPo.hbm.xml"/>
+    	
     </session-factory>
 
 </hibernate-configuration>
