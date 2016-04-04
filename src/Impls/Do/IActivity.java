@@ -3,7 +3,6 @@ package Impls.Do;
 import java.util.List;
 
 import po.Activities;
-
 import Impls.AbsClass;
 
 public class IActivity extends AbsClass{
@@ -53,17 +52,26 @@ public class IActivity extends AbsClass{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Activities> Search(String name){
 		super.Init();
 		List<Activities> act_list = null;
 		try{
 			String hql = "from Activities as act where act.activity_name like '%"+name+"%'";
 			act_list = super.session.createQuery(hql).list();
+			if(act_list.size()==0){
+				hql = "from Activities as act where act.content like '%"+name+"%'";
+				act_list = super.session.createQuery(hql).list();
+				if(act_list.size()==0){
+					hql = "from Activities as act where act.title like '%"+name+"%'";
+					act_list = super.session.createQuery(hql).list();
+				}
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
-		return act_list;
+		return act_list.size()==0?null:act_list;
 	}
 	
 	public boolean Update(Activities act){
@@ -78,9 +86,10 @@ public class IActivity extends AbsClass{
 		}
 		return true;
 	}
+	@SuppressWarnings("unchecked")
 	public List<Activities> ShowAll(){
 		super.Init();
-		List act_list = null;
+		List<Activities> act_list = null;
 		try {
 			act_list = super.session.createQuery("from Activities").list();
 			if(act_list.size()==0)
@@ -90,7 +99,7 @@ public class IActivity extends AbsClass{
 			// TODO: handle exception
 			return null;
 		}
-		return act_list;
+		return act_list.size()==0?null:act_list;
 	}
 
 }

@@ -63,7 +63,7 @@ public class IPurchase extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return purchase_list;
+		return purchase_list.size()==0?null:purchase_list;
 	}
 	public boolean Update(Purchase purchase){
 		super.Init();

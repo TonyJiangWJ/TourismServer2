@@ -52,6 +52,7 @@ public class IZan extends AbsClass{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Zan> ShowAll(String obj_id){
 		super.Init();
 		List<Zan> zan_list = null;
@@ -63,7 +64,7 @@ public class IZan extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return zan_list;
+		return zan_list.size()==0?null:zan_list;
 	}
 	public boolean Update(Zan zan){
 		super.Init();

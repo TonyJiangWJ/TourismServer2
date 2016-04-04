@@ -54,17 +54,18 @@ public class IPackage extends AbsClass{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Packages> Search(String name){
 		super.Init();
 		List<Packages> pkg_list = null;
 		try{
-			String hql = "from Packages as pkg where pkg.pkg_name like '%"+name+"%'";
+			String hql = "from Packages as pkg where pkg.pkg_name like '%"+name+"%' or pkg.content like '%"+name+"%'";
 			pkg_list = super.session.createQuery(hql).list();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
-		return pkg_list;
+		return pkg_list.size()==0?null:pkg_list;
 	}
 	public boolean Update(Packages pkg){
 		super.Init();
@@ -90,6 +91,6 @@ public class IPackage extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return pkg_list;
+		return pkg_list.size()==0?null:pkg_list;
 	}
 }

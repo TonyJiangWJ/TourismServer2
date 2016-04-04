@@ -54,17 +54,18 @@ public class ITopic extends AbsClass{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Topic> Search(String name){
 		super.Init();
 		List<Topic> tpc_list = null;
 		try{
-			String hql = "from Topic as tpc where tpc.tpc_name like '%"+name+"%'";
+			String hql = "from Topic as tpc where tpc.tpc_name like '%"+name+"%' or tpc.content like '%"+name+"%'";
 			tpc_list = super.session.createQuery(hql).list();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
-		return tpc_list;
+		return tpc_list.size()==0?null:tpc_list;
 	}
 	public boolean Update(Topic tpc){
 		super.Init();
@@ -78,6 +79,7 @@ public class ITopic extends AbsClass{
 		}
 		return true;
 	}
+	@SuppressWarnings("unchecked")
 	public List<Topic> ShowAll(){
 		super.Init();
 		List tpc_list = null;
@@ -88,6 +90,6 @@ public class ITopic extends AbsClass{
 			// TODO: handle exception
 			return null;
 		}
-		return tpc_list;
+		return tpc_list.size()==0?null:tpc_list;
 	}
 }

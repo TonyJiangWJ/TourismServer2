@@ -53,17 +53,18 @@ public class IKnowledge extends AbsClass{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Knowledge> Search(String name){
 		super.Init();
 		List<Knowledge> nlg_list = null;
 		try{
-			String hql = "from Knowledge as nlg where nlg.nlg_name like '%"+name+"%'";
+			String hql = "from Knowledge as nlg where nlg.nlg_name like '%"+name+"%' or nlg.content like '%"+name+"%'";
 			nlg_list = super.session.createQuery(hql).list();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
-		return nlg_list;
+		return nlg_list.size()==0?null:nlg_list;
 	}
 	public boolean Update(Knowledge nlg){
 		super.Init();
@@ -78,6 +79,7 @@ public class IKnowledge extends AbsClass{
 		return true;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Knowledge> ShowAll(){
 		super.Init();
 		List nlg_list = null;
@@ -88,6 +90,6 @@ public class IKnowledge extends AbsClass{
 			// TODO: handle exception
 			return null;
 		}
-		return nlg_list;
+		return nlg_list.size()==0?null:nlg_list;
 	}
 }

@@ -62,7 +62,7 @@ public class IComment extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return comt_list;
+		return comt_list.size()==0?null:comt_list;
 	}
 	public List<Comment> Search(String name){
 		super.Init();
@@ -75,6 +75,6 @@ public class IComment extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return comt_list;
+		return comt_list.size()==0?null:comt_list;
 	}
 }

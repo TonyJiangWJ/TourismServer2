@@ -76,11 +76,12 @@ public class IUser extends AbsClass{
 		return usr;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<User> Search(String name){
 		List usr_list = null;
 		super.Init();
 		try{
-			String hql = "from User as usr where usr.name like '%"+name+"%'";
+			String hql = "from User as usr where usr.name like '%"+name+"%' or usr.nick_name like '%"+name+"%'";
 			org.hibernate.Query query = super.session.createQuery(hql);
 			usr_list = query.list();
 			super.Close();
@@ -89,6 +90,6 @@ public class IUser extends AbsClass{
 			return null;
 		}
 
-		return usr_list;
+		return usr_list.size()==0?null:usr_list;
 	}
 }

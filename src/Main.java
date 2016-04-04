@@ -1,9 +1,12 @@
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import Impls.Do.IUser;
 import po.User;
 import utils.statics.DateUtil;
 import utils.statics.DoFactory;
+import utils.statics.EncodeUtil;
 import utils.statics.ParseMD5;
 import utils.statics.UTools;
 
@@ -48,7 +51,7 @@ public class Main {
 //			System.out.println("没有找到");
 //		}
 		
-//		String name = "王巴阿";
+//		String name = "把";
 //		List<User> list = iUser.Search(name);
 //		if(list!=null){
 //			for(int i=0;i<list.size();i++){
@@ -59,14 +62,37 @@ public class Main {
 //			System.out.println("没有找到和 '"+name+"' 相关的用户");
 //		}
 		
-		User usr4 = DoFactory.GetDoUser().login("18957612454@tourism","E10ADC3949BA59ABBE56E057F20F883E");
-		if(usr4!=null){
-			System.out.println("用户名："+usr4.getUser_name()+"创建时间："+usr4.getCreated_time()+"手机号："+usr4.getPhone());
-		}else{
-			System.out.println("用户名或者密码错误");
+//		User usr4 = DoFactory.GetDoUser().login("18957612454@tourism","E10ADC3949BA59ABBE56E057F20F883E");
+//		if(usr4!=null){
+//			System.out.println("用户名："+usr4.getUser_name()+"创建时间："+usr4.getCreated_time()+"手机号："+usr4.getPhone());
+//		}else{
+//			System.out.println("用户名或者密码错误");
+//		}
+		
+		String utf8String = "%E5%85%94%E5%AD%90";
+
+		System.out.println(utf8String);
+		
+		String tuziString = "兔子";
+		System.out.println("兔子："+tuziString);
+		tuziString = EncodeUtil.toUTF8(tuziString);
+		System.out.println("兔子："+tuziString);
+		
+		String isoString = EncodeUtil.toUTF8(utf8String);
+		System.out.println("iso:"+isoString);
+		String misString = EncodeUtil.MEtoUTF8(utf8String);
+		System.out.println("chrome:"+misString);
+		ChangeAndShow(utf8String);
+	}
+	public static void ChangeAndShow(String str){
+		try {
+			str=URLDecoder.decode(str,"utf-8");
+			str=new String(str.getBytes("ISO-8859-1"),"UTF-8");
+			System.out.println(str);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		
 	}
-
 }

@@ -62,7 +62,7 @@ public class ICompany extends AbsClass{
 			e.printStackTrace();
 			return null;
 		}
-		return comp_list;
+		return comp_list.size()==0?null:comp_list;
 	}
 
 }
