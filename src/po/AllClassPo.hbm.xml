@@ -89,7 +89,7 @@
 		<property name  ="publisher_id" column = "_publisher_id"/>
 		<property name  ="title" column = "_title"/>
 		<property name  ="tpc_name" column = "_tpc_name"/>
-		<property name  ="put_time" column = "_pub_time"/>
+		<property name  ="pub_time" column = "_pub_time"/>
 	</class>
 	
 	<class name = "po.User" table = "t_user">
