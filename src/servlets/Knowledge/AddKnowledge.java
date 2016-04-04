@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 import utils.HttpResult;
 import po.Knowledge;
 
@@ -40,6 +42,8 @@ public class AddKnowledge extends HttpServlet {
 		if(request.getParameter("jsonKnowledge")!=null){
 			String jsonString = EncodeUtil.toUTF8(request.getParameter("jsonKnowledge"));
 			Knowledge nlg = (Knowledge) JsonUtil.jsonString2Object(jsonString, Knowledge.class);
+			nlg.setPub_time(DateUtil.GetDateString());
+			nlg.setNlg_id(UTools.getUniqueId(nlg.getNlg_name(), nlg.getPub_time()));
 			if(DoFactory.GetDoKnowledge().Insert(nlg)){
 				hResult.setResult("success");
 				hResult.setStatus(200);

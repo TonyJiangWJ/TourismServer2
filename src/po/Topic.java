@@ -8,6 +8,15 @@ public class Topic {
 	private String content;
 	private int people_num;
 	private String publisher_id;
+	private String pub_time;
+	
+	
+	public String getPub_time() {
+		return pub_time;
+	}
+	public void setPub_time(String pub_time) {
+		this.pub_time = pub_time;
+	}
 	public String getTpc_id() {
 		return tpc_id;
 	}

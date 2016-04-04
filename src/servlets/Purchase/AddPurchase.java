@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.HttpResult;
 import po.Purchase;
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 
 /**
  * Servlet implementation class AddPurchase
@@ -41,6 +43,8 @@ public class AddPurchase extends HttpServlet {
 		if(jsonPsh!=null){
 			jsonPsh = EncodeUtil.toUTF8(jsonPsh);
 			Purchase psh = (Purchase) JsonUtil.jsonString2Object(jsonPsh, Purchase.class);
+			psh.setPurchase_date(DateUtil.GetDateString());
+			psh.setPurchase_id(UTools.getUniqueId(psh.getOwner_id(),psh.getPurchase_date()));
 			flag = DoFactory.GetDoPurchase().Insert(psh);
 		}else{
 			flag = false;  

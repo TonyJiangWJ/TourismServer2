@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.HttpResult;
 import po.Packages;
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 
 /**
  * Servlet implementation class AddPackage
@@ -39,6 +41,8 @@ public class AddPackage extends HttpServlet {
 		String jsonPkg = request.getParameter("jsonPkg");
 		if(jsonPkg!=null){
 			Packages pkg = (Packages) JsonUtil.jsonString2Object(jsonPkg, Package.class);
+			pkg.setPub_time(DateUtil.GetDateString());
+			pkg.setPackage_id(UTools.getUniqueId(pkg.getPkg_name(), pkg.getPub_time()));
 			flag = DoFactory.GetDoPackage().Insert(pkg);
 		}else{
 			flag = false;

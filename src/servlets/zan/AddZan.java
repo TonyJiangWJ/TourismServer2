@@ -1,4 +1,4 @@
-package servlets.Topic;
+package servlets.zan;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import po.Zan;
 import utils.HttpResult;
-import po.Topic;
 import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
@@ -18,16 +18,16 @@ import utils.statics.JsonUtil;
 import utils.statics.UTools;
 
 /**
- * Servlet implementation class AddTopic
+ * Servlet implementation class AddZan
  */
-@WebServlet("/AddTopic")
-public class AddTopic extends HttpServlet {
+@WebServlet("/AddZan")
+public class AddZan extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTopic() {
+    public AddZan() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,25 +38,21 @@ public class AddTopic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		HttpResult hResult = new HttpResult();
-		if(request.getParameter("jsonTopic")!=null){
-			String jsonString = EncodeUtil.toUTF8(request.getParameter("jsonTopic"));
-			Topic tpc = (Topic) JsonUtil.jsonString2Object(jsonString, Topic.class);
-			tpc.setPub_time(DateUtil.GetDateString());
-			tpc.setTpc_id(UTools.getUniqueId(tpc.getTpc_name(), tpc.getPub_time()));
-			if(DoFactory.GetDoTopic().Insert(tpc)){
-				hResult.setResult("success");
-				hResult.setStatus(200);
-			}else{
-
-				hResult.setResult("fail exists");
-				hResult.setStatus(202);
-			}
+		String jsonZan = request.getParameter("jsonZan");
+		boolean flag = true; 
+		if(jsonZan!=null){
+			jsonZan = EncodeUtil.toUTF8(jsonZan);
+			Zan zan = (Zan) JsonUtil.jsonString2Object(jsonZan, Zan.class);
+			zan.setPub_time(DateUtil.GetDateString());
+			zan.setZan_id(UTools.getUniqueId(zan.getOwner_id(), zan.getPub_time()));
+			flag = DoFactory.GetDoZan().Insert(zan);
 		}else{
-			hResult.setResult("fail");
-			hResult.setStatus(202);
+			flag = false;
 		}
-		out.write(JsonUtil.object2JsonString(hResult));
+		HttpResult h = new HttpResult(flag);
+		out.write(JsonUtil.object2JsonString(h));
+		out.flush();
+		out.close();
 	}
 
 	/**

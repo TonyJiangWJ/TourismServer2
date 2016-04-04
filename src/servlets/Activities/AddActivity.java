@@ -11,11 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
 import po.Activities;
 import utils.HttpResult;
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 
 /**
  * Servlet implementation class AddActivity
@@ -43,6 +47,8 @@ public class AddActivity extends HttpServlet {
 		if(json!=null){
 			json = EncodeUtil.toUTF8(json);
 			Activities act = (Activities) JsonUtil.jsonString2Object(json, Activities.class);
+			act.setPub_time(DateUtil.GetDateString());
+			act.setActivity_id(UTools.getUniqueId(act.getActivity_name(), act.getPub_time()));
 			if(DoFactory.GetDoActivity().Insert(act)){
 				flag=true;
 			}else{

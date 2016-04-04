@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import po.Comment;
 import utils.HttpResult;
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 
 /**
  * Servlet implementation class AddComment
@@ -41,6 +43,8 @@ public class AddComment extends HttpServlet {
 		if(json!=null){
 			json = EncodeUtil.toUTF8(json);
 			Comment comment = (Comment) JsonUtil.jsonString2Object(json, Comment.class);
+			comment.setPub_time(DateUtil.GetDateString());
+			comment.setComment_id(UTools.getUniqueId(comment.getContent(), comment.getPub_time()));
 			if(DoFactory.GetDoComment().Insert(comment)){
 				flag = true;
 			}

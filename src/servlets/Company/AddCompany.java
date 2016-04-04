@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import po.Company;
 import utils.HttpResult;
+import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 @WebServlet("/AddCompany")
 public class AddCompany extends HttpServlet {
 
@@ -39,6 +41,8 @@ public class AddCompany extends HttpServlet {
 		if(jsonCompany!=null){
 			jsonCompany=EncodeUtil.toUTF8(jsonCompany);
 			Company company = (Company) JsonUtil.jsonString2Object(jsonCompany, Company.class);
+			company.setJoin_time(DateUtil.GetDateString());
+			company.setCompany_id(UTools.getUniqueId(company.getCompany_name(), company.getJoin_time()));
 			flag=DoFactory.GetDoCompany().Insert(company);
 		}else{
 			flag=false;

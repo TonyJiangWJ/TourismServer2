@@ -14,6 +14,7 @@ import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
+import utils.statics.UTools;
 import po.User;
 
 /**
@@ -49,6 +50,8 @@ public class SignUp extends HttpServlet {
 		if(jsonString!=null){
 			jsonString = EncodeUtil.toUTF8(jsonString);
 			User signUser = (User)JsonUtil.jsonString2Object(jsonString, User.class);
+			signUser.setCreated_time(DateUtil.GetDateString());
+			signUser.setUser_id(UTools.getUniqueId(signUser.getUser_name(), signUser.getCreated_time()));
 			if(DoFactory.GetDoUser().Insert(signUser)){
 				JSONObject json = new JSONObject();
 				json.put("status", 200);
@@ -66,6 +69,7 @@ public class SignUp extends HttpServlet {
 			if(userName!=null&&password!=null){
 				User signUser = new User();
 				signUser.setCreated_time(DateUtil.GetDateString());
+				
 				signUser.setImage("default");
 				signUser.setName("null");
 				signUser.setNick_name("null");
@@ -73,6 +77,7 @@ public class SignUp extends HttpServlet {
 				signUser.setSex("ÄÐ");
 				signUser.setPhone(userName);
 				signUser.setUser_name(userName+"@tourism");
+				signUser.setUser_id(UTools.getUniqueId(signUser.getUser_name(), signUser.getCreated_time()));
 				
 				if(userName!=null&&DoFactory.GetDoUser().Insert(signUser)){
 					JSONObject json = new JSONObject();

@@ -11,23 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.HttpResult;
 import po.Topic;
-import utils.statics.DateUtil;
 import utils.statics.DoFactory;
 import utils.statics.EncodeUtil;
 import utils.statics.JsonUtil;
-import utils.statics.UTools;
 
 /**
- * Servlet implementation class AddTopic
+ * Servlet implementation class AddTopicPeople
  */
-@WebServlet("/AddTopic")
-public class AddTopic extends HttpServlet {
+@WebServlet("/AdjustTopic")
+public class AdjustTopic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddTopic() {
+    public AdjustTopic() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,24 +36,21 @@ public class AddTopic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		HttpResult hResult = new HttpResult();
-		if(request.getParameter("jsonTopic")!=null){
-			String jsonString = EncodeUtil.toUTF8(request.getParameter("jsonTopic"));
-			Topic tpc = (Topic) JsonUtil.jsonString2Object(jsonString, Topic.class);
-			tpc.setPub_time(DateUtil.GetDateString());
-			tpc.setTpc_id(UTools.getUniqueId(tpc.getTpc_name(), tpc.getPub_time()));
-			if(DoFactory.GetDoTopic().Insert(tpc)){
-				hResult.setResult("success");
-				hResult.setStatus(200);
-			}else{
-
-				hResult.setResult("fail exists");
-				hResult.setStatus(202);
+		String str = request.getParameter("jsonTopic");
+		boolean flag = false;
+		if(str!=null){
+			str = EncodeUtil.toUTF8(str);
+			Topic tpc = new Topic();
+			tpc.setTpc_name(str);
+			if(DoFactory.GetDoTopic().Update(tpc)){
+				flag=true;
 			}
 		}else{
-			hResult.setResult("fail");
-			hResult.setStatus(202);
+			flag=false;
 		}
+		HttpResult hResult = new HttpResult();
+		hResult.setStatus(flag?200:202);
+		hResult.setResult(flag?"success":"fail");
 		out.write(JsonUtil.object2JsonString(hResult));
 	}
 
